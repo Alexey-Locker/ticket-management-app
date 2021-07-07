@@ -1,4 +1,4 @@
-import { LOGGIN_USER } from "../actions/actions";
+import { LOGIN_USER } from "../actions/actions";
 
 const DEFAULT_USER_VALUES = {
   email: "",
@@ -10,7 +10,7 @@ export default function userReducer(
   { type, payload }
 ) {
   switch (type) {
-    case LOGGIN_USER:
+    case LOGIN_USER:
       return payload;
     default:
       return state;

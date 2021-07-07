@@ -7,7 +7,7 @@ import TextFieldForFormik from "./TextFieldFormik/TextFieldForFormik";
 import "./Authorization.scss";
 import { validate } from "validate.js";
 import { useDispatch } from "react-redux";
-import { loggin } from "../../common/store/user/actions/actions";
+import { login } from "../../common/store/user/actions/actions";
 
 const DEFAULT_VALUE_FORM = {
   email: "",
@@ -38,7 +38,7 @@ export default function Registration() {
       ...value,
       checkbox: value.checkbox[0] === "yes",
     };
-    dispatch(loggin(data));
+    dispatch(login(data));
   }
 
   return (
