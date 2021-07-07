@@ -1,4 +1,5 @@
-import React from "react";
+import { TextField } from "@material-ui/core";
+import React, { useMemo } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,13 +18,24 @@ export default function Main() {
   }, [dispatch]);
 
   const onChange = ({ target }) => setValue(target.value);
+
+  const tickets = useMemo(() => {
+    return !value
+      ? user.tickets
+      : user.tickets.filter(({ company }) => {
+          const regular = new RegExp(`${value}`);
+          if (regular.test(company.name)) return true;
+          return company.alternativeNames.some((name) => regular.test(name));
+        });
+  }, [value, user]);
+
   return (
     <div className="main">
       <div className="main__search">
-        <input onChange={onChange} value={value} />
+        <TextField label="Поиск" value={value} onInput={onChange} />
       </div>
       <div className="main__wrapper">
-        {user.tickets.map((ticket) => (
+        {tickets.map((ticket) => (
           <Ticket key={ticket.id} ticket={ticket} />
         ))}
       </div>

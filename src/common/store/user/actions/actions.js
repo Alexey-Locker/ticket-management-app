@@ -41,3 +41,11 @@ export function getTikets(user) {
       });
   };
 }
+
+export const LOGOUT_USER = "LOGOUT_USER";
+export function logout() {
+  localStorage.setItem("token", "");
+  return function (dispatch) {
+    dispatch({ type: LOGOUT_USER });
+  };
+}
