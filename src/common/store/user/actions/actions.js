@@ -1,4 +1,5 @@
 import { authenticateUser, getFlights, getUser } from "../../../sdk/sdk";
+import { deleteError, setError } from "../../errors/actions/actions";
 
 export const LOGIN_USER = "LOGGIN_USER";
 
@@ -11,7 +12,11 @@ export function login(user) {
         if (user.checkbox) {
           localStorage.setItem("token", data.token);
         }
-      });
+        dispatch(deleteError());
+      })
+      .catch((res) =>
+        res.json().then(({ message }) => dispatch(setError(message)))
+      );
   };
 }
 

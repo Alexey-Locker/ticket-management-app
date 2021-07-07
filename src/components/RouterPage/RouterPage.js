@@ -8,14 +8,13 @@ import Main from "../Main/Main";
 
 export default function RouterPage() {
   const dispatch = useDispatch();
-  const { user, loader } = useSelector((state) => state);
+  const { user } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(isValidToken());
   }, [dispatch]);
-  if (loader) {
-    return <div>loading...</div>;
-  } else if (user.token) {
+
+  if (user.token) {
     return (
       <>
         <Header />
@@ -26,9 +25,11 @@ export default function RouterPage() {
     );
   } else {
     return (
-      <Route path="/">
-        <Authorization />
-      </Route>
+      <>
+        <Route path="/">
+          <Authorization />
+        </Route>
+      </>
     );
   }
 }
