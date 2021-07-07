@@ -1,4 +1,4 @@
-import { authenticateUser, getUser } from "../../../sdk/sdk";
+import { authenticateUser, getFlights, getUser } from "../../../sdk/sdk";
 
 export const LOGIN_USER = "LOGGIN_USER";
 
@@ -8,7 +8,6 @@ export function login(user) {
       .then((res) => res.json())
       .then((data) => {
         dispatch({ type: LOGIN_USER, payload: data });
-        console.log(data);
         if (user.checkbox) {
           localStorage.setItem("token", data.token);
         }
@@ -24,5 +23,21 @@ export function isValidToken() {
         dispatch({ type: LOGIN_USER, payload: { token, email: data.email } });
       });
     }
+  };
+}
+
+export const SET_TIKETS = "SET_TIKETS";
+
+export function getTikets(user) {
+  return function (dispatch) {
+    getFlights(user.token)
+      .then((res) => res.json())
+      .then(({ data }) => {
+        const tickets = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        dispatch({ type: SET_TIKETS, payload: { ...user, tickets } });
+      });
   };
 }
