@@ -1,13 +1,17 @@
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Form from "./components/Form/Form";
+import { Provider } from "react-redux";
+import store from "./common/store/store";
+import RouterPage from "./components/RouterPage/RouterPage";
+
+const token = localStorage.getItem("token");
+
+if (!token) localStorage.setItem("token", "");
+
 function App() {
   return (
-    <Router>
-      <Route path="/">
-        <Form />
-      </Route>
-    </Router>
+    <Provider store={store}>
+      <RouterPage />
+    </Provider>
   );
 }
 
