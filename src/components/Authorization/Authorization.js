@@ -6,7 +6,7 @@ import TextFieldForFormik from "./TextFieldFormik/TextFieldForFormik";
 
 import "./Authorization.scss";
 import { validate } from "validate.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../common/store/user/actions/actions";
 
 const DEFAULT_VALUE_FORM = {
@@ -33,6 +33,7 @@ function validateForm(values) {
 
 export default function Registration() {
   const dispatch = useDispatch();
+  const { errors } = useSelector((state) => state);
   function onSubmit(value) {
     const data = {
       ...value,
@@ -67,6 +68,7 @@ export default function Registration() {
             Sign Up
           </Button>
         </Form>
+        <p className="form__error">{errors}</p>
       </div>
     </Formik>
   );

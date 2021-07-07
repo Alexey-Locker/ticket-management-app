@@ -1,4 +1,4 @@
-import { LOGIN_USER, SET_TIKETS } from "../actions/actions";
+import { LOGIN_USER, LOGOUT_USER, SET_TIKETS } from "../actions/actions";
 
 const DEFAULT_USER_VALUES = {
   email: "",
@@ -15,6 +15,8 @@ export default function userReducer(
       return { ...state, ...payload };
     case SET_TIKETS:
       return { ...state, ...payload };
+    case LOGOUT_USER:
+      return DEFAULT_USER_VALUES;
     default:
       return state;
   }
